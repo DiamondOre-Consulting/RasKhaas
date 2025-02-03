@@ -11,7 +11,7 @@ const Sidebar = () => {
           aria-label="Sidebar"
         >
           <div class="h-full px-3 py-4 overflow-y-auto ">
-            <h1 className="text-2xl p-4 font-serif text-[#2c7f75] mb-10 ">RASKHAAS</h1>
+            <h1 className="text-2xl p-4 font-serif text-[#2c7f75] mb-10 ">RASKHAS</h1>
             <ul class="space-y-4 font-medium">
               <li className=" shadow-lg rounded-md ">
                 <Link

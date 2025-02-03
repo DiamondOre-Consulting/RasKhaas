@@ -8,7 +8,7 @@ const Hero = () => {
     
       <img src={heroimg} alt="Hero" className="w-full h-screen object-cover" />
 <div className="bg-black opacity-30 absolute inset-0"></div>
-<div className="absolute top-0 p-10 text-4xl  z-40 text-white font-bold font-serif">RASKHAAS</div>
+<div className="absolute top-0 p-10 text-4xl  z-40 text-white font-bold font-serif">RASKHAS</div>
       <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center text-center px-4">
         <p className="mainfont text-3xl md:text-5xl text-white uppercase">
           Meet our industry expert
