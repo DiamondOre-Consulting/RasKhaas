@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-    origin: ['http://localhost:5173' , "https://raskhaas-frontend.onrender.com"],
+    origin: ['http://localhost:5173' , "https://raskhaas-frontend.onrender.com" , "https://raskhas.com/"],
     credentials : true
 }))
 
