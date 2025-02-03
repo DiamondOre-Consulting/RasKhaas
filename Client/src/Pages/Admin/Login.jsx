@@ -36,9 +36,9 @@ const Login = () => {
 
   return (
     <div>
-      <div className="w-screen min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-800 px-4 sm:px-6 lg:px-8">
+      <div className="w-screen min-h-screen flex items-center justify-center bg-gray-50  px-4 sm:px-6 lg:px-8">
         <div className="relative py-3 sm:max-w-xs sm:mx-auto">
-          <div className="min-h-96 px-8 py-6 mt-4 text-left bg-white dark:bg-gray-900  rounded-xl shadow-lg">
+          <div className="min-h-96 px-8 py-6 mt-4 text-left bg-white   rounded-xl shadow-lg">
             <form onSubmit={LoginUser}>
               <div className="flex flex-col justify-center items-center h-full select-none">
                 <div className="flex flex-col items-center justify-center gap-2 mb-8">
@@ -48,7 +48,7 @@ const Login = () => {
                       className="w-8"
                     />
                   </a> */}
-                  <p className="m-0 text-[16px] font-semibold dark:text-white">
+                  <p className="m-0 text-[16px] font-semibold ">
                     Login to your Account
                   </p>
                   <span className="m-0 text-xs max-w-[90%] text-center text-[#8B8E98]">
@@ -65,7 +65,7 @@ const Login = () => {
                     value={fromdata.email}
                     name="email"
                     onChange={handleInput}
-                    className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                    className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                     placeholder="Email"
                   />
                 </div>
@@ -79,7 +79,7 @@ const Login = () => {
                   name="password"
                   onChange={handleInput}
                   type="password"
-                  className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                  className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                   placeholder="••••••••"
                 />
               </div>

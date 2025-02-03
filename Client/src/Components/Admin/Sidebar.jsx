@@ -16,10 +16,10 @@ const Sidebar = () => {
               <li className=" shadow-lg rounded-md ">
                 <Link
                 to={'/admin-dashboard'}
-                  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
                 >
                   <svg
-                    class="w-5 h-5 text-[#2c7f75] transition duration-75  group-hover:text-[#2c7f75] dark:group-hover:text-white"
+                    class="w-5 h-5 text-[#2c7f75] transition duration-75  group-hover:text-[#2c7f75] "
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"
@@ -35,10 +35,10 @@ const Sidebar = () => {
               <li className="shadow-xl liborder">
                 <Link
                  to={'/admin-dashboard/register-user'}
-                  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
                 >
                   <svg
-                    class="shrink-0 w-5 h-5 text-[#2c7f75] transition duration-75 dark:text-gray-400 group-hover:text-[#2c7f75] dark:group-hover:text-white"
+                    class="shrink-0 w-5 h-5 text-[#2c7f75] transition duration-75  group-hover:text-[#2c7f75] "
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"
@@ -54,10 +54,10 @@ const Sidebar = () => {
               <li className="shadow-lg rounded-md">
                 <a
                   href="#"
-                  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
                 >
                   <svg
-                    class="shrink-0 w-5 h-5 text-[#2c7f75] transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                    class="shrink-0 w-5 h-5 text-[#2c7f75] transition duration-75  group-hover:text-gray-900 "
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"

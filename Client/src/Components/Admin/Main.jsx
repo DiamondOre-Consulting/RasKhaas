@@ -131,12 +131,12 @@ const Main = ({ user }) => {
           <input
             type="text"
             name="q"
-            class="w-full border-[#2c7f75] border h-12 shadow p-4 rounded-full dark:text-gray-800 dark:border-gray-700 dark:bg-gray-200"
+            class="w-full border-[#2c7f75] border h-12 shadow p-4 rounded-full   "
             placeholder="search"
           />
           <button type="submit">
             <svg
-              class="text-teal-400 h-5 w-5 absolute top-3.5 right-3 fill-current dark:text-teal-300"
+              class="text-teal-400 h-5 w-5 absolute top-3.5 right-3 fill-current "
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
               version="1.1"
@@ -273,7 +273,7 @@ const Main = ({ user }) => {
               <form onSubmit={handleUpdateUser}>
                 <div className="flex flex-col justify-center items-center h-full select-none">
                   <div className="flex flex-col items-center justify-center gap-2 mb-8">
-                    <p className="m-0  text-[20px] font-semibold dark:text-white">
+                    <p className="m-0  text-[20px] font-semibold ">
                       Update User
                     </p>
                   </div>
@@ -288,7 +288,7 @@ const Main = ({ user }) => {
                         value={formData.fullName}
                         name="fullName"
                         onChange={handleInputChange}
-                        className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                        className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                         placeholder="Full Name"
                       />
                     </div>
@@ -303,7 +303,7 @@ const Main = ({ user }) => {
                         name="email"
                         type="email"
                         onChange={handleInputChange}
-                        className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                        className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                         placeholder="Email"
                       />
                     </div>
@@ -318,7 +318,7 @@ const Main = ({ user }) => {
                         value={formData?.phone}
                         name="phone"
                         onChange={handleInputChange}
-                        className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                        className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                         placeholder="phone"
                       />
                     </div>
@@ -343,7 +343,7 @@ const Main = ({ user }) => {
                         name="avatar"
                         type="file"
                         onChange={imgUpload} // Corrected onChange handler
-                        className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                        className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                       />
                     </div>
                   </div>
@@ -357,7 +357,7 @@ const Main = ({ user }) => {
                       name="calendlyUrl"
                       type="text"
                       onChange={handleInputChange}
-                      className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                      className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                       placeholder="calendlyUrl"
                     />
                   </div>
@@ -371,7 +371,7 @@ const Main = ({ user }) => {
                       value={formData?.about}
                       name="about"
                       onChange={handleInputChange}
-                      className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                      className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                       placeholder="about"
                     />
                   </div>

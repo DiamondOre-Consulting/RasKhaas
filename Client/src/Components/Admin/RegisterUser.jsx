@@ -66,11 +66,11 @@ const RegisterUser = () => {
     <div>
       <div className="min-h-screen flex items-center justify-center ">
         <div className="relative py-3 min-w-xl sm:mx-auto">
-          <div className="min-h-96 px-8 py-6 mt-4 text-left bg-white dark:bg-gray-900 rounded-xl shadow-lg">
+          <div className="min-h-96 px-8 py-6 mt-4 text-left bg-white  rounded-xl shadow-lg">
             <form onSubmit={registerUser}>
               <div className="flex flex-col justify-center items-center h-full select-none">
                 <div className="flex flex-col items-center justify-center gap-2 mb-8">
-                  <p className="m-0 text-[20px] font-semibold dark:text-white">
+                  <p className="m-0 text-[20px] font-semibold ">
                     Register User
                   </p>
                 </div>
@@ -85,7 +85,7 @@ const RegisterUser = () => {
                       value={formData.fullName}
                       name="fullName"
                       onChange={handleInputChange}
-                      className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                      className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                       placeholder="Full Name"
                     />
                   </div>
@@ -100,7 +100,7 @@ const RegisterUser = () => {
                       name="email"
                       type="email"
                       onChange={handleInputChange}
-                      className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                      className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                       placeholder="Email"
                     />
                   </div>
@@ -115,7 +115,7 @@ const RegisterUser = () => {
                       value={formData.phone}
                       name="phone"
                       onChange={handleInputChange}
-                      className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                      className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                       placeholder="phone"
                     />
                   </div>
@@ -140,7 +140,7 @@ const RegisterUser = () => {
                       name="avatar"
                       type="file"
                       onChange={getImage} // Corrected onChange handler
-                      className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                      className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                     />
                   </div>
                 </div>
@@ -154,7 +154,7 @@ const RegisterUser = () => {
                     name="calendlyUrl"
                     type="url"
                     onChange={handleInputChange}
-                    className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                    className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                     placeholder="calendlyUrl"
                   />
                 </div>
@@ -168,7 +168,7 @@ const RegisterUser = () => {
                     value={formData.about}
                     name="about"
                     onChange={handleInputChange}
-                    className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+                    className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                     placeholder="about"
                   />
                 </div>
