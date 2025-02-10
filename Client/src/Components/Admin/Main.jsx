@@ -6,14 +6,14 @@ import {
   updateUser,
 } from "../../Redux/Slices/AdminAuthSlice";
 import { BsPersonCircle, BsPersonFill } from "react-icons/bs";
-
+import { searching } from "../../Redux/Slices/AdminAuthSlice";
+import { debounce } from "lodash";
 const Main = ({ user }) => {
   const dispatch = useDispatch();
   const [deletepopup, setDeletePopUp] = useState(false);
   const [seletedid, useSelectedId] = useState();
 
   const handledeleteUser = async (e) => {
-
     e.preventDefault();
     try {
       const response = await dispatch(deleteUser(seletedid));
@@ -30,12 +30,10 @@ const Main = ({ user }) => {
   const handleGetSingleUser = async (id, e) => {
     e.preventDefault();
     setEditUserPopUp(true);
- 
-    const response = await dispatch(getSingleUser(id));
-   
-    setSingleUser(response?.payload?.singleUser);
 
- 
+    const response = await dispatch(getSingleUser(id));
+
+    setSingleUser(response?.payload?.singleUser);
   };
 
   const [image, setImage] = useState("");
@@ -61,7 +59,7 @@ const Main = ({ user }) => {
     }
   }, [mySingleUser]);
 
-//   console.log(formData);
+  //   console.log(formData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -71,7 +69,6 @@ const Main = ({ user }) => {
     }));
   };
 
-//   console.log(formData);
   function imgUpload(e) {
     e.preventDefault();
     const uploadedImg = e.target.files[0];
@@ -79,7 +76,7 @@ const Main = ({ user }) => {
     if (uploadedImg) {
       setFormData({
         ...formData,
-        avatar: uploadedImg, // Ensure formData is used correctly
+        avatar: uploadedImg, 
       });
 
       const fileReader = new FileReader();
@@ -114,7 +111,6 @@ const Main = ({ user }) => {
       const response = await dispatch(
         updateUser({ id: seletedid, data: myformData })
       );
-   
 
       if (response.payload.success) {
         setEditUserPopUp(false);
@@ -124,19 +120,43 @@ const Main = ({ user }) => {
     }
   };
 
+  const [searchText, setSearchText] = useState("");
+  const [filterdata, setFilterData] = useState(null);
+  console.log(searchText);
+  const handleSearch = debounce(async () => {
+    if (searchText.trim()) {
+      const response = await dispatch(searching({ searchText }));
+      setFilterData(response?.payload?.user);
+      console.log("data is main", response.data);
+    }
+    else {
+      setFilterData(null); 
+    }
+  }, 500);
+
+  useEffect(() => {
+    handleSearch();
+  }, [searchText]);
+
+  console.log("myfiltered data ", filterdata);
+
   return (
     <div className="">
-      <form action="/search" class="w-full mb-10 w-full px-2">
-        <div class="relative">
+      <form className="w-full mb-10 w-full px-2">
+        <div className="relative">
           <input
             type="text"
-            name="q"
-            class="w-full border-[#2c7f75] border h-12 shadow p-4 rounded-full   "
-            placeholder="search"
+            name="search"
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+            className="w-full border-[#2c7f75] border h-12 shadow p-4 rounded-full"
+            placeholder="Search..."
           />
           <button type="submit">
             <svg
-              class="text-teal-400 h-5 w-5 absolute top-3.5 right-3 fill-current "
+              className="text-teal-400 h-5 w-5 absolute top-3.5 right-3 fill-current "
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
               version="1.1"
@@ -150,10 +170,10 @@ const Main = ({ user }) => {
         </div>
       </form>
 
-      {/* <div class="p-4 sm:ml-62"> */}
+      {/* <div className="p-4 sm:ml-62"> */}
 
       <div className="space-y-4">
-        {user.map((myuser, index) => (
+      {(filterdata !== null ? filterdata : user)?.map((myuser, index) => (
           <div
             className=" shadow-md flex justify-between items-center  border border-gray-600 w-full py-3 px-6  rounded-full"
             key={index}
@@ -167,7 +187,7 @@ const Main = ({ user }) => {
             <p> {myuser?.email}</p>
             <p> {myuser?.phone}</p>
             <p
-            className="bg-yellow-300 px-6 py-2 text-sm  cursor-pointer rounded-full cursor-pointer"
+              className="bg-yellow-300 px-6 py-2 text-sm  cursor-pointer rounded-full cursor-pointer"
               onClick={(e) => {
                 useSelectedId(myuser?._id);
                 handleGetSingleUser(myuser?._id, e);
@@ -188,72 +208,35 @@ const Main = ({ user }) => {
           </div>
         ))}
       </div>
-      {/* <div className="grid grid-cols-1 gap-y-4  md:grid-cols-4  gap-x-4 px-2">
-        {user.map((myuser, index) => (
-          <article
-            key={index}
-            class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-8 pb-8 pt-40 w-full mx-auto "
-          >
-            <img
-              src={myuser?.avatar?.secure_url}
-              alt="University of Southern California"
-              class="absolute inset-0 h-full w-full object-cover"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-            <h3 class="z-10 mt-3 text-3xl font-bold text-white">
-              {myuser?.fullName}
-            </h3>
-            <div class="z-10 gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
-              <p 
-             onClick={(e) => {
-              
-               useSelectedId(myuser?._id);
-               handleGetSingleUser(myuser?._id, e);
-             }}
-           
-              className="mt-2 underline  cursor-pointer">Edit</p>
-              <p
-                onClick={() => {
-                  useSelectedId(myuser?._id);
-                  setDeletePopUp(true);
-                }}
-              >
-                delete
-              </p>
-            </div>
-          </article>
-        ))}
-      </div> */}
-      {/* </div> */}
 
       {deletepopup && (
-        <div class="fixed inset-0 flex items-center justify-center z-50 backdrop-blur confirm-dialog ">
-          <div class="relative px-4 min-h-screen md:flex md:items-center md:justify-center">
-            <div class=" opacity-25 w-full h-full absolute z-10 inset-0"></div>
-            <div class="bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative shadow-lg">
-              <div class="md:flex items-center">
-                <div class="rounded-full border border-gray-300 flex items-center justify-center w-16 h-16 flex-shrink-0 mx-auto">
-                  <i class="bx bx-error text-3xl">&#9888;</i>
+        <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur confirm-dialog ">
+          <div className="relative px-4 min-h-screen md:flex md:items-center md:justify-center">
+            <div className=" opacity-25 w-full h-full absolute z-10 inset-0"></div>
+            <div className="bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative shadow-lg">
+              <div className="md:flex items-center">
+                <div className="rounded-full border border-gray-300 flex items-center justify-center w-16 h-16 flex-shrink-0 mx-auto">
+                  <i className="bx bx-error text-3xl">&#9888;</i>
                 </div>
-                <div class="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
-                  <p class="font-bold">Warning!</p>
-                  <p class="text-sm text-gray-700 mt-1">
-                   Are you sure you want to delete this user! 
+                <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
+                  <p className="font-bold">Warning!</p>
+                  <p className="text-sm text-gray-700 mt-1">
+                    Are you sure you want to delete this user!
                   </p>
                 </div>
               </div>
-              <div class="text-center md:text-right mt-4 md:flex md:justify-end">
+              <div className="text-center md:text-right mt-4 md:flex md:justify-end">
                 <button
                   onClick={(e) => {
                     handledeleteUser(e);
                   }}
-                  class="block cursor-pointer w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-red-200 text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2"
+                  className="block cursor-pointer w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-red-200 text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2"
                 >
                   Delete
                 </button>
                 <button
                   onClick={() => setDeletePopUp(false)}
-                  class="block w-full cursor-pointer  md:inline-block md:w-auto px-4 py-3 md:py-2 bg-gray-200 rounded-lg font-semibold text-sm mt-4 md:mt-0 md:order-1"
+                  className="block w-full cursor-pointer  md:inline-block md:w-auto px-4 py-3 md:py-2 bg-gray-200 rounded-lg font-semibold text-sm mt-4 md:mt-0 md:order-1"
                 >
                   Cancel
                 </button>
@@ -264,12 +247,16 @@ const Main = ({ user }) => {
       )}
 
       {edituserpopup && (
-        <div class="fixed inset-0 flex items-center justify-center z-50 backdrop-blur confirm-dialog ">
-          <div class="relative px-4 min-h-screen md:flex md:items-center md:justify-center">
-            <div class=" opacity-25 w-full h-full absolute z-10 inset-0"></div>
-            <div class="bg-white rounded-lg px-8 md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative shadow-lg">
-               <p className="float-right text-2xl cursor-pointer"
-               onClick={()=> setEditUserPopUp(false)} >x</p>
+        <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur confirm-dialog ">
+          <div className="relative px-4 min-h-screen md:flex md:items-center md:justify-center">
+            <div className=" opacity-25 w-full h-full absolute z-10 inset-0"></div>
+            <div className="bg-white rounded-lg px-8 md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative shadow-lg">
+              <p
+                className="float-right text-2xl cursor-pointer"
+                onClick={() => setEditUserPopUp(false)}
+              >
+                x
+              </p>
               <form onSubmit={handleUpdateUser}>
                 <div className="flex flex-col justify-center items-center h-full select-none">
                   <div className="flex flex-col items-center justify-center gap-2 mb-8">

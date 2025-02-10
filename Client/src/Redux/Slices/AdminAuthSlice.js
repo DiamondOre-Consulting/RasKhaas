@@ -29,6 +29,26 @@ export const login = createAsyncThunk("/login", async (data) => {
   }
 });
 
+export const fetchProfile = createAsyncThunk('/fetch-profile' , async()=>{
+  try{
+        const response = await toast.promise(
+          axiosInstance.get(`/admin/fetch-profile`),
+          {
+            loading: "Fetching Admin........",
+            success: (res) => res?.data?.message,
+            error: (res) => res?.errors,
+          }
+        );
+      
+        return response.data
+  }
+  catch(e){
+    console.log(e);
+    return toast.error(err.response.data.errors);
+
+  }
+})
+
 export const fetchAllUser = createAsyncThunk(
   "/all-genius",
   async () => {
@@ -121,6 +141,42 @@ export const updateUser = createAsyncThunk('/update-user', async ({ id, data }) 
 });
 
 
+export const logout = createAsyncThunk('/logout' , async()=>{
+  try{
+    const response = await toast.promise(
+      axiosInstance.get('/admin/logout'),
+      {
+        loading: "Loading...",
+        success: (res) => res?.data?.message,
+        error: (res) => res?.errors,
+      }
+    );
+    console.log(response.data)
+    return response.data
+
+  }
+  catch(e){
+    console.log(response.data)
+
+    // return  toast.error(err.response.data.errors);
+  }
+} )
+
+export const searching = createAsyncThunk('/search', async ({ searchText }) => {
+  try {
+    const query = new URLSearchParams();
+    if (searchText) query.append("searchTerm", searchText);
+    
+    const response = await axiosInstance.post(`/admin/search/?${query.toString()}`);
+    console.log("data in slice ",response.data)
+    return response.data; 
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+});
+
+
 const authSlice = createSlice({
   name: "admin",
   initialState,
@@ -131,10 +187,13 @@ const authSlice = createSlice({
         console.log(action);
         state.user = action?.payload?.user;
         state.isLoggedIn = true;
-        localStorage.setItem("user", JSON.stringify(action?.payload?.user));
+        // localStorage.setItem("user", JSON.stringify(action?.payload?.user));
         localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("token", action?.payload?.token);
-        console.log("islogin ", state.isLoggedIn);
+        // localStorage.setItem("token", action?.payload?.token);
+        // console.log("islogin ", state.isLoggedIn);
+      })
+      .addCase(fetchProfile.fulfilled , (state , action)=>{
+        state.user = action.payload.user
       })
       .addCase(fetchAllUser.fulfilled, (state, action) => {
 
@@ -154,6 +213,13 @@ const authSlice = createSlice({
       .addCase(updateUser.fulfilled ,(state , action)=>{
           state.user = action.payload.action
       })
+   .addCase(logout.fulfilled , (state , action)=>{
+    state.isLoggedIn = false
+   })
+   .addCase(searching.fulfilled , (state ,action)=>{
+      
+      console.log(state)
+   })
 
   },
 });

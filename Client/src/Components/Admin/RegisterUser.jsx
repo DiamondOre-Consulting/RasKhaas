@@ -13,7 +13,7 @@ const RegisterUser = () => {
     calendlyUrl: "",
     avatar: "",
   });
-  // console.log(formData);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -26,17 +26,15 @@ const RegisterUser = () => {
   const getImage = (event) => {
     event.preventDefault();
 
-    const uploadedImg = event.target.files[0]; // Access the selected file correctly
-   
+    const uploadedImg = event.target.files[0]; 
 
     if (uploadedImg) {
-      // Set the avatar in formData state
       setFormData({
         ...formData,
         avatar: uploadedImg,
       });
 
-      // Read the file as a Data URL to display the image preview
+    
       const fileReader = new FileReader();
       fileReader.readAsDataURL(uploadedImg);
       fileReader.onloadend = () => {
@@ -58,6 +56,18 @@ const RegisterUser = () => {
 
       const response = await dispatch(registerUserByAdmin(myformData));
       // console.log(response);
+
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        about: "",
+        calendlyUrl: "",
+        avatar: "",
+      })
+        
+
+      
     } catch (err) {
       console.log(err);
     }

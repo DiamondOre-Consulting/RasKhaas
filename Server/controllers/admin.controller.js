@@ -15,7 +15,7 @@ const cookieOption = {
 export const signup = async (req, res) => {
   try {
     const { fullName, email, password } = req.body;
-  
+
     if (!fullName || !email || !password) {
       return res.status(404).send({
         success: false,
@@ -23,16 +23,16 @@ export const signup = async (req, res) => {
       });
     }
     const existingAdmin = await Admin.findOne({ email: email });
- 
+
     if (existingAdmin) {
       return res.status(409).json({
         success: false,
         errors: "Admin already exist",
       });
     }
-  
+
     const hasshedpassword = await bcryt.hash(password, 10);
-   
+
     const newAdmin = await Admin.create({
       fullName,
       email,
@@ -41,27 +41,23 @@ export const signup = async (req, res) => {
 
     const token = await newAdmin.generateJWTToken();
 
-   
     if (!token) {
-      
       return res.status(400).send({
         success: false,
         message: "error in generating token",
       });
     }
 
-   
     await newAdmin.save();
 
     res.cookie("token", token, cookieOption);
-   
+
     return res.status(200).json({
       success: true,
       message: "Admin Register successfully",
       Admin: newAdmin,
     });
   } catch (e) {
-   
     return res.status(500).json({
       success: false,
       errors: "Error while signup",
@@ -72,7 +68,7 @@ export const signup = async (req, res) => {
 export const signin = async (req, res) => {
   try {
     const { email, password } = req.body;
-   
+
     if (!email || !password) {
       return res.status(404).json({
         success: false,
@@ -81,7 +77,6 @@ export const signin = async (req, res) => {
     }
 
     const isAdminExist = await Admin.findOne({ email }).select("+password");
-  
 
     if (!isAdminExist) {
       return res.status(400).json({
@@ -90,19 +85,16 @@ export const signin = async (req, res) => {
       });
     }
 
-    
     const checkPassword = await isAdminExist.comparePassword(password);
-   
+
     if (!checkPassword) {
       return res.status(404).json({
         success: false,
         errors: "password is incorrect",
       });
     }
-  
 
     const token = await isAdminExist.generateJWTToken();
-  
 
     if (!token) {
       res.status(409).json({
@@ -131,10 +123,8 @@ export const signin = async (req, res) => {
 
 export const fetchProfile = async (req, res) => {
   try {
-   
     const userId = req?.user?.id;
-
-
+    console.log(userId);
     const existingAdmin = await Admin.findById(userId);
     if (!existingAdmin) {
       return res.status(404).json({
@@ -149,7 +139,6 @@ export const fetchProfile = async (req, res) => {
       admin: existingAdmin,
     });
   } catch (err) {
-  
     return res.status(500).json({
       success: false,
       errors: "error occured while fetching profile",
@@ -159,8 +148,7 @@ export const fetchProfile = async (req, res) => {
 
 export const registergenuis = async (req, res) => {
   try {
-    const { fullName, calendlyUrl , email, phone, about } = req.body;
-   
+    const { fullName, calendlyUrl, email, phone, about } = req.body;
 
     if (!fullName || !email || !phone || !about || !calendlyUrl) {
       return res.status(400).json({
@@ -169,9 +157,7 @@ export const registergenuis = async (req, res) => {
       });
     }
 
- 
     const isUserExist = await genius.findOne({ email });
-   
 
     if (isUserExist) {
       return res.status(400).json({
@@ -179,16 +165,13 @@ export const registergenuis = async (req, res) => {
         errors: "User already exists",
       });
     }
-  
-  
+
     if (!req.file) {
       return res.status(400).json({
         success: false,
         errors: "File upload is required",
       });
     }
-
-  
 
     let uploadedFile;
     try {
@@ -213,8 +196,6 @@ export const registergenuis = async (req, res) => {
       });
     }
 
-   
-
     // Create the user only after file upload succeeds
     const user = await genius.create({
       fullName,
@@ -229,7 +210,6 @@ export const registergenuis = async (req, res) => {
     });
 
     await user.save();
-  
 
     return res.status(200).json({
       success: true,
@@ -237,7 +217,6 @@ export const registergenuis = async (req, res) => {
       user,
     });
   } catch (e) {
- 
     return res.status(500).json({
       success: false,
       errors: "An error occurred",
@@ -263,7 +242,6 @@ export const fetchAllGenuis = async (req, res) => {
       users: allgenius,
     });
   } catch (err) {
-  
     return res.status(500).json({
       status: false,
       errors: "an error occured",
@@ -273,13 +251,20 @@ export const fetchAllGenuis = async (req, res) => {
 
 export const adminLogout = (req, res) => {
   try {
-    res.clearCookie("token");
+    const token = "";
+    const cookieOption = {
+      logoutAt: new Date(),
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+    };
+    res.clearCookie("token", token, cookieOption);
     res.status(200).json({
       success: true,
       message: "logout successfully",
     });
   } catch (err) {
-  
+    console.log(err);
     return res.status(500).json({
       success: false,
       errors: "error occured",
@@ -290,7 +275,7 @@ export const adminLogout = (req, res) => {
 export const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
-
+    console.log(id);
     const isUserExist = await genius.findById(id);
     if (!isUserExist) {
       return res.status(400).json({
@@ -408,6 +393,34 @@ export const getSingleUser = async (req, res) => {
     return res.status(500).json({
       success: false,
       errors: "something went wrong",
+    });
+  }
+};
+
+export const fetchSearching = async (req, res) => {
+  try {
+    const { searchTerm } = req.query;
+    console.log(searchTerm)
+    const user = await genius
+      .find({
+        $or: [
+          { fullName: { $regex: searchTerm, $options: "i" } },
+          // { phone: { $regex: searchTerm, $options: "i" } },
+          { email: { $regex: searchTerm, $options: "i" } },
+        ],
+      })
+      .select("fullName phone email phone avatar");
+
+    return res.status(200).json({
+      success: true,
+      message: "search fetched ",
+      user,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Error in fetching search results",
     });
   }
 };

@@ -43,4 +43,28 @@
 } */
 
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ... */
+
+@layer base {
+  :root {
+
+    --radius: 0.5rem
+  }
+}
+
+
+.mybg{
+  background: linear-gradient(166deg, rgba(27,6,13,1) 78%, rgba(0,0,0,1) 95%);
+}
+
+.myfont{
+  font-family: "Rajdhani", sans-serif;
+}
+
+
+
 

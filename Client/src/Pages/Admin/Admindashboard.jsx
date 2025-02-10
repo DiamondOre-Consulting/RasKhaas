@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllUser } from '../../Redux/Slices/AdminAuthSlice'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import RegisterUser from '../../Components/Admin/RegisterUser'
+import AdminAuthVarify from '@/Components/Admin/AdminAuthVarify'
 
 const Admindashboard = () => {
 
@@ -15,14 +16,16 @@ const Admindashboard = () => {
     dispatch(fetchAllUser())
   },[dispatch])
   return (
-    <div className='a'>
-      <Sidebar/>
+    <div className=''>
+      <Sidebar className=""/>
 
-      <div className="ml-64 p-4 h-screen  bg-gray-100">
+      <div className="ml-64 p-4 h-screen bg-gray-100">
      
           <Routes>
+            {/* <Route element={<AdminAuthVarify/>}> */}
             <Route path="/" element={<Main user={user} />} />
             <Route path="/register-user" element={<RegisterUser />} />
+            {/* </Route> */}
             {/* Add other routes here */}
           </Routes>
        

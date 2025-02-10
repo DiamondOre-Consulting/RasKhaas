@@ -9,6 +9,8 @@ import BookConsultation from './Pages/BookConsultation'
 import Admindashboard from './Pages/Admin/Admindashboard'
 import Login from './Pages/Admin/Login'
 import RegisterUser from './Components/Admin/RegisterUser'
+import MainHome from './Pages/MainHome'
+import AdminAuthVarify from './Components/Admin/AdminAuthVarify'
 
 
 function App() {
@@ -19,11 +21,12 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        <Route path='/' element={<Hero/>}/>
-        <Route path='/all-users' element={<AllUsers/>}/>
+        <Route path='/' element={<MainHome/>}/>
         <Route path='/book-consultation' element = {<BookConsultation/>}/>
         <Route path='/admin-login' element={<Login/>}/>
+         <Route element={<AdminAuthVarify/>}>
         <Route path='/admin-dashboard/*' element={<Admindashboard/>}/>
+        </Route>
      
       </Routes>
     

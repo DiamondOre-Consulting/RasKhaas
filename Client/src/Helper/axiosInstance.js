@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = "https://raskhaas-backend.onrender.com/api"
+const BASE_URL = "http://localhost:5000/api"
+// https://raskhaas-backend.onrender.com/api
 const axiosInstance = axios.create();
 
 axiosInstance.defaults.baseURL = BASE_URL
