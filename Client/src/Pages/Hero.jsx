@@ -59,13 +59,13 @@ const Hero = () => {
             <a
               target="_blank"
               href="https://wa.me/919811839410?text=Hello i want to register myself on Raskhas"
-              className="bg-white z-20 text-black w-fit px-10 shadow-xl py-3 cursor-pointer"
+              className="bg-white z-20 text-black w-fit px-4 md:px-10 shadow-xl py-3 cursor-pointer"
             >
               Register Now
             </a>
             <a
               href="#user"
-              className="cursor-pointer z-20  bg-[#ff014f] text-white w-fit shadow-xl px-10 py-3"
+              className="cursor-pointer z-20  bg-[#ff014f] text-white w-fit shadow-xl px-4 md:px-10 py-3"
             >
               Explore More
             </a>
