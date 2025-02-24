@@ -49,7 +49,7 @@ const Hero = () => {
             <TypewriterEffectSmooth words={words} />
           </h1>
           <p></p>
-          <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
+          <p className="text-neutral-100 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
             Connect with experienced professionals from various fields and gain
             valuable insights. Book a free consultation and take the next step
             in your journey with expert guidance.
