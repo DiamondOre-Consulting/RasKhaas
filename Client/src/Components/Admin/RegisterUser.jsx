@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { registerUserByAdmin } from "../../Redux/Slices/AdminAuthSlice";
 import { BsPersonCircle, BsPersonFill } from "react-icons/bs";
+import Editor from "./Editor";
 const RegisterUser = () => {
   const dispatch = useDispatch();
   const [image, setImage] = useState("");
@@ -43,6 +44,7 @@ const RegisterUser = () => {
     }
   };
 
+  console.log(formData.about)
   const registerUser = async (e) => {
     e.preventDefault();
     try {
@@ -57,14 +59,14 @@ const RegisterUser = () => {
       const response = await dispatch(registerUserByAdmin(myformData));
       // console.log(response);
 
-      setFormData({
-        fullName: "",
-        email: "",
-        phone: "",
-        about: "",
-        calendlyUrl: "",
-        avatar: "",
-      })
+      // setFormData({
+      //   fullName: "",
+      //   email: "",
+      //   phone: "",
+      //   about: "",
+      //   calendlyUrl: "",
+      //   avatar: "",
+      // })
         
 
       
@@ -173,14 +175,16 @@ const RegisterUser = () => {
                   <label className="font-semibold text-xs text-gray-400">
                     About
                   </label>
-                  <textarea
+                  {/* <textarea
                     rows={3}
                     value={formData.about}
                     name="about"
                     onChange={handleInputChange}
                     className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                     placeholder="about"
-                  />
+                  /> */}
+
+                  <Editor  data={formData.about} change={handleInputChange}  />
                 </div>
 
                 {/* Submit Button */}

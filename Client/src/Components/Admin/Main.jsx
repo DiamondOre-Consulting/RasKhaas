@@ -8,6 +8,7 @@ import {
 import { BsPersonCircle, BsPersonFill } from "react-icons/bs";
 import { searching } from "../../Redux/Slices/AdminAuthSlice";
 import { debounce } from "lodash";
+import Editor from "./Editor";
 const Main = ({ user }) => {
   const dispatch = useDispatch();
   const [deletepopup, setDeletePopUp] = useState(false);
@@ -353,14 +354,16 @@ const Main = ({ user }) => {
                     <label className="font-semibold text-xs text-gray-400">
                       About
                     </label>
-                    <textarea
+                    {/* <textarea
                       rows={3}
                       value={formData?.about}
                       name="about"
                       onChange={handleInputChange}
                       className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none  "
                       placeholder="about"
-                    />
+                    /> */}
+
+                    <Editor data={formData?.about} change={handleInputChange}/>
                   </div>
 
                   {/* Submit Button */}

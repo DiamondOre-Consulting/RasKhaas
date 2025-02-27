@@ -125,10 +125,12 @@ const AllUsers = () => {
                 </div>
 
                 <div className="p-4 md:p-5 space-y-4">
-                  <p className="text-base leading-relaxed text-gray-500 ">
-                    {mySingleUser?.about}
-                  </p>
+                  <p
+                    className="text-base leading-relaxed text-gray-500"
+                    dangerouslySetInnerHTML={{ __html: mySingleUser?.about }}
+                  />
                 </div>
+
                 <div className="flex w-full items-center p-4 md:p-5 border-t border-gray-200 rounded-b ">
                   <Link
                     to="/book-consultation"
