@@ -6,6 +6,7 @@ import { fetchAllUser } from '../../Redux/Slices/AdminAuthSlice'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import RegisterUser from '../../Components/Admin/RegisterUser'
 import AdminAuthVarify from '@/Components/Admin/AdminAuthVarify'
+import AllEnqueryForm from '@/Components/Admin/AllEnqueryForm'
 
 const Admindashboard = () => {
 
@@ -25,6 +26,7 @@ const Admindashboard = () => {
             {/* <Route element={<AdminAuthVarify/>}> */}
             <Route path="/" element={<Main user={user} />} />
             <Route path="/register-user" element={<RegisterUser />} />
+            <Route path='/all-enquiries' element={<AllEnqueryForm/>}/>
             {/* </Route> */}
             {/* Add other routes here */}
           </Routes>

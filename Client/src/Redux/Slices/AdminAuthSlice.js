@@ -177,6 +177,46 @@ export const searching = createAsyncThunk('/search', async ({ searchText }) => {
 });
 
 
+export const enquireFrom = createAsyncThunk('/enquire' , async(data)=>{
+  try{
+
+    const response = await toast.promise(
+      axiosInstance.post("/admin/enquire-form", data),
+      {
+        loading: "Loading....",
+        success: (res) => res?.data?.message,
+        error: (res) => res?.data?.errors,
+      }
+    );
+    
+    return response.data;
+  }
+  catch(err){
+    console.log(err)
+    return toast.error(err.response.data.errors);
+  }
+})
+
+
+export const getEnquiryForms = createAsyncThunk('/get-form' , async()=>{
+  try{
+
+    const response = await toast.promise(
+      axiosInstance.get("/admin/get-enquire-form"),
+      {
+        loading: "Loading....",
+        success: (res) => res?.data?.message,
+        error: (res) => res?.data?.errors,
+      }
+    );
+    return response?.data;
+  }
+  catch(err){
+    console.log(err)
+    return toast.error(err.response.data.errors);
+  }
+
+})
 const authSlice = createSlice({
   name: "admin",
   initialState,
@@ -214,10 +254,10 @@ const authSlice = createSlice({
           state.user = action.payload.action
       })
    .addCase(logout.fulfilled , (state , action)=>{
+    localStorage.setItem("isLoggedIn", "false");
     state.isLoggedIn = false
    })
    .addCase(searching.fulfilled , (state ,action)=>{
-      
       console.log(state)
    })
 

@@ -4,6 +4,7 @@ import { Admin } from "../models/admin.model.js";
 import { genius } from "../models/genius.model.js";
 import cloudinary from "cloudinary";
 import fs from "fs";
+import { Enquire } from "../models/enquire.model.js";
 
 const cookieOption = {
   maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -400,7 +401,7 @@ export const getSingleUser = async (req, res) => {
 export const fetchSearching = async (req, res) => {
   try {
     const { searchTerm } = req.query;
-    console.log(searchTerm)
+    console.log(searchTerm);
     const user = await genius
       .find({
         $or: [
@@ -421,6 +422,62 @@ export const fetchSearching = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Error in fetching search results",
+    });
+  }
+};
+
+export const userEnquire = async (req, res) => {
+  try {
+    const { fullName, email, phone, description } = req.body;
+    console.log(fullName, email, phone, description);
+    console.log(1);
+    if (!fullName || !email || !phone) {
+      return res.status(400).json({
+        success: false,
+        errors: "All Field are required ",
+      });
+    }
+
+    console.log(2);
+    const enquire = await Enquire.create({
+      fullName,
+      email,
+      phone,
+      description,
+    });
+
+    await enquire.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Enquire added successfully",
+      enquire,
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({
+      success: false,
+      errors: "something went wrong",
+    });
+  }
+};
+
+export const getEnquireFrom = async (req, res) => {
+  try {
+    console.log(1);
+    const enquireForm =await Enquire.find({});
+    console.log(enquireForm)
+    console.log(2);
+    return res.status(200).json({
+      success: true,
+      message: "Enquire Form fetched successfully",
+      enquireForm,
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({
+      success: false,
+      errors: "something went wrong",
     });
   }
 };

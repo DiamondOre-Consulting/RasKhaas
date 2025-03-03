@@ -13,7 +13,7 @@ const Editor = ({ data, change }) => {
   return (
     <div>
       <p> About </p>
-      <SunEditor                       dangerouslySetInnerHTML={{ __html: content}}  setContents={content} onChange={handleChange} />
+      <SunEditor dangerouslySetInnerHTML={{ __html: content}}  setContents={content} onChange={handleChange} />
     </div>
   );
 };
